@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel Creador | CrowdfundApp</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div data-include="../components/navbar.html"></div>
+
+  <!-- Contenido principal -->
+  <div class="container my-5">
+    <h2 class="mb-4">Bienvenido, <span id="nombreUsuario">Creador</span> 👋</h2>
+
+    <div class="alert alert-info">
+      Aquí podrás crear y administrar tus campañas de financiamiento.
+    </div>
+
+    <div class="d-grid gap-2 d-md-block">
+      <a href="crear-campania.html" class="btn btn-primary me-2">➕ Crear campaña</a>
+      <a href="mis-campanias.html" class="btn btn-outline-secondary">📋 Ver mis campañas</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div data-include="../components/footer.html"></div>
+
+  <!-- Scripts -->
+  <script src="../js/include.js"></script>
+  <script src="../js/navbar.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const nombre = localStorage.getItem("nombre") || "Creador";
+      document.getElementById("nombreUsuario").textContent = nombre;
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const rol = localStorage.getItem("rol");
+  
+      if (rol !== "creador") {
+        window.location.href = "./login.html";
+        return;
+      }
+  
+      const nombre = localStorage.getItem("nombre") || "Creador";
+      document.getElementById("nombreUsuario").textContent = nombre;
+    });
+  </script>
+  
+</body>
+</html>
