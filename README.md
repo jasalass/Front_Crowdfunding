@@ -55,5 +55,5 @@ Este proyecto forma parte de una demostración de desarrollo full stack. El fron
 ## 🧑‍💻 Autor
 
 Desarrollado por **Juan Andrés Salas**  
-Estudiante de Ingeniería en Informática - Segundo Año  
+Estudiante de Ingeniería en Informática - Tercer Año  
 Duoc UC
