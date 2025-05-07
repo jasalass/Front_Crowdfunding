@@ -1,6 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
+  <div class="container-fluid">
     <a class="navbar-brand" href="/index.html">CrowdfundApp</a>
-    <div id="navbarContenido" class="ms-auto d-flex gap-2"></div>
+    
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido del navbar -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContenido">
+      <div id="navbarOpciones" class="d-flex flex-column flex-lg-row gap-2 align-items-lg-center mt-3 mt-lg-0">
+        <!-- Esto se llena con navbar.js -->
+      </div>
+    </div>
   </div>
 </nav>

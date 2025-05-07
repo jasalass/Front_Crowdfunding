@@ -1,53 +1,78 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("formCampania");
-    const mensaje = document.getElementById("mensajeCampania");
-  
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      mensaje.innerHTML = "";
-  
-      const titulo = document.getElementById("titulo").value.trim();
-      const descripcion = document.getElementById("descripcion").value.trim();
-      const meta = parseInt(document.getElementById("meta").value);
-      const fechaLimite = document.getElementById("fechaLimite").value;
-  
-      const errores = [];
-      if (!titulo) errores.push("El título es obligatorio.");
-      if (!descripcion) errores.push("La descripción es obligatoria.");
-      if (!meta || meta <= 0) errores.push("La meta debe ser un número mayor a 0.");
-      if (!fechaLimite) errores.push("La fecha límite es obligatoria.");
-  
-      if (errores.length > 0) {
-        mensaje.innerHTML = `<div class="alert alert-danger">${errores.map(e => `• ${e}`).join("<br>")}</div>`;
-        return;
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+  const info = document.getElementById("infoCampania");
+  const form = document.getElementById("formAporte");
+  const montoInput = document.getElementById("monto");
+  const mensaje = document.getElementById("mensajeAporte");
+  const token = localStorage.getItem("token");
+
+  if (!id || !info || !form || !montoInput) {
+    console.warn("Elementos clave no encontrados en el DOM.");
+    return;
+  }
+
+  // Obtener datos de la campaña
+  try {
+    const res = await fetch(`https://backend-crowdfunding-mzfl.onrender.com/api/campanias/${id}`);
+    const campania = await res.json();
+
+    if (!res.ok || !campania._id) {
+      info.innerHTML = `<div class="alert alert-danger">No se pudo cargar la campaña.</div>`;
+      return;
+    }
+
+    info.innerHTML = `
+      <h2>${campania.titulo}</h2>
+      <p>${campania.descripcion}</p>
+      <p><strong>Meta:</strong> $${(campania.meta || 0).toLocaleString('es-CL')}</p>
+      <p><strong>Recaudado:</strong> $${(campania.recaudado || 0).toLocaleString('es-CL')}</p>
+      <p><strong>Fecha límite:</strong> ${new Date(campania.fechaLimite).toLocaleDateString()}</p>
+    `;
+  } catch (error) {
+    console.error("Error al obtener campaña:", error);
+    info.innerHTML = `<div class="alert alert-danger">No se pudo cargar la campaña.</div>`;
+  }
+
+  // Enviar aporte
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const monto = parseInt(montoInput.value, 10);
+
+    if (!token) {
+      mensaje.innerHTML = `<div class="alert alert-warning">Debes iniciar sesión para aportar.</div>`;
+      return;
+    }
+
+    if (!monto || monto < 1000) {
+      mensaje.innerHTML = `<div class="alert alert-danger">El monto mínimo es $1.000.</div>`;
+      return;
+    }
+
+    try {
+      const res = await fetch("https://backend-crowdfunding-mzfl.onrender.com/api/aportes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          monto,
+          campaniaId: id
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        mensaje.innerHTML = `<div class="alert alert-success">¡Gracias por tu aporte!</div>`;
+        form.reset();
+      } else {
+        mensaje.innerHTML = `<div class="alert alert-danger">${data.error || 'No se pudo registrar el aporte.'}</div>`;
       }
-  
-      const datos = { titulo, descripcion, meta, fechaLimite };
-  
-      try {
-        const token = localStorage.getItem("token");
-  
-        const res = await fetch("http://localhost:3000/api/campanias", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify(datos)
-        });
-  
-        const result = await res.json();
-  
-        if (res.ok) {
-          mensaje.innerHTML = `<div class="alert alert-success">✅ Campaña creada exitosamente.</div>`;
-          form.reset();
-        } else {
-          mensaje.innerHTML = `<div class="alert alert-danger">❌ ${result.error || "Ocurrió un error"}</div>`;
-        }
-      } catch (error) {
-        console.error(error);
-        mensaje.innerHTML = `<div class="alert alert-danger">🚫 Error de conexión</div>`;
-      }
-    });
+    } catch (err) {
+      console.error("Error al enviar aporte:", err);
+      mensaje.innerHTML = `<div class="alert alert-danger">Error al conectar con el servidor.</div>`;
+    }
   });
-  
+});

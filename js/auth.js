@@ -1,4 +1,6 @@
 
+
+
 // Lógica de Registro
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("registroForm");
@@ -36,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const datos = { nombre, correo, contrasena, rol };
   
       try {
-        const res = await fetch("http://localhost:3000/api/registro", {
+        const res = await fetch("https://backend-crowdfunding-mzfl.onrender.com/api/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -91,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
   
         try {
-          const res = await fetch("http://localhost:3000/api/login", {
+          const res = await fetch("https://backend-crowdfunding-mzfl.onrender.com/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ correo, contrasena })

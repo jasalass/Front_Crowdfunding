@@ -1,7 +1,8 @@
 function inicializarNavbar() {
     const rol = localStorage.getItem("rol");
     const nombre = localStorage.getItem("nombre") || "";
-    const navbar = document.getElementById("navbarContenido");
+    const navbar = document.getElementById("navbarOpciones");
+
   
     if (!navbar) return;
  
@@ -13,9 +14,12 @@ function inicializarNavbar() {
       navbar.innerHTML = `
         <span class="text-white align-self-center">Hola, ${nombre}</span>
         <a href="${base}creador-home.html" class="btn btn-outline-light">Inicio</a>
+        <a href="${base}mis-campanias.html" class="btn btn-outline-light">Mis campañas</a>
         <button class="btn btn-danger" onclick="cerrarSesion()">Cerrar sesión</button>
       `;
-    } else if (rol === "usuario") {
+    }
+    
+     else if (rol === "usuario") {
       navbar.innerHTML = `
         <span class="text-white align-self-center">Hola, ${nombre}</span>
         <a href="${base}usuario-home.html" class="btn btn-outline-light">Inicio</a>
