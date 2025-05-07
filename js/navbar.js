@@ -6,7 +6,8 @@ function inicializarNavbar() {
   
     if (!navbar) return;
  
-    const base = window.location.pathname.endsWith("index.html") ? "views/" : "./";
+    const base = window.location.pathname.includes("/views/") ? "./" : "views/";
+
 
     console.log("ROL DETECTADO:", rol);
   
