@@ -1,59 +1,98 @@
-# 🎯 Plataforma de Crowdfunding - Frontend
+# 📱 CrowdfundApp - Frontend
 
-Este repositorio contiene la interfaz web del proyecto **CrowdfundApp**, una plataforma de financiamiento colectivo que permite a creadores publicar campañas y a usuarios contribuir a ellas.
+Interfaz web del sistema de financiamiento colaborativo **CrowdfundApp**, construida con HTML, CSS, Bootstrap y JavaScript puro.
 
----
-
-## 🧩 Tecnologías utilizadas
-
-- **HTML5** y **CSS3** con enfoque modular
-- **Bootstrap 5.3** para diseño responsive y profesional
-- **JavaScript Vanilla** para la lógica de interacción
-- **LocalStorage** para gestión básica de sesión (token y rol)
+Permite a creadores gestionar campañas y a usuarios aportar de forma segura y simple.
 
 ---
 
-## 🚀 Funcionalidades implementadas (MVP)
+## 🌐 Enlaces importantes
 
-- Registro y login de usuarios (rol: creador o contribuyente)
-- Vistas diferenciadas por rol (usuario vs. creador)
-- Creación de campañas (creador)
-- Exploración de campañas y aportes (usuario)
-- Listado de campañas creadas con barra de progreso
-- Página de error personalizada (404)
+- 🔴 Sitio en producción (Netlify): [https://crowdfunding-demo.netlify.app](https://crowdfunding-demo.netlify.app)  
+- ⚙️ Repositorio del backend (Render + MongoDB): [https://github.com/jasalass/Backend_Crowdfunding](https://github.com/jasalass/Backend_Crowdfunding)
 
 ---
 
-## ⚙️ Estructura del proyecto
+## 🔍 Funcionalidades principales
 
-- `views/` → Vistas internas como login, home, crear campaña  
-- `components/` → Navbar y footer reutilizables  
-- `js/` → Scripts por módulo (auth, campañas, etc.)  
-- `assets/` → Imágenes y estilos personalizados  
-- `index.html` → Página principal pública  
-- `404.html` → Página de error personalizada  
-
----
-
-## 🧪 Próximos pasos
-
-- Integración con backend en Node.js + Express + MongoDB
-- Autenticación con tokens JWT
-- Persistencia real de campañas y aportes
-- Página de historial de aportes por usuario
-- Edición de campañas (solo creador)
-- Panel de administración (futuro)
+- Autenticación de usuarios con JWT
+- Registro e inicio de sesión
+- Creación de campañas con meta, descripción y fecha límite
+- Exploración de campañas activas
+- Aportes con validación
+- Navbar dinámico según el rol
+- Diseño responsive con Bootstrap
 
 ---
 
-## 📌 Nota
+## 📁 Estructura del proyecto
 
-Este proyecto forma parte de una demostración de desarrollo full stack. El frontend está listo para integrarse con un backend RESTful.
+```
+FRONT_CROWDFUNDING/
+├── components/
+│   ├── footer.html
+│   └── navbar.html
+├── css/
+│   └── estilo.css
+├── img/
+├── js/
+│   ├── auth.js
+│   ├── campania.js
+│   ├── config.js
+│   ├── crear-campania.js
+│   ├── explorar.js
+│   ├── include.js
+│   ├── mis-campanias.js
+│   └── navbar.js
+├── views/
+│   ├── creador-home.html
+│   ├── crear-campania.html
+│   ├── explorar.html
+│   ├── login.html
+│   ├── mis-campanias.html
+│   ├── registro.html
+│   └── usuario-home.html
+├── 404.html
+├── index.html
+└── README.md
+```
 
 ---
 
-## 🧑‍💻 Autor
+## ⚙️ Configuración para desarrollo
 
-Desarrollado por **Juan Andrés Salas**  
-Estudiante de Ingeniería en Informática - Tercer Año  
-Duoc UC
+1. Clona este repositorio:
+
+```bash
+git clone https://github.com/jasalass/Front_Crowdfunding
+```
+
+2. Abre `index.html` con Live Server o sube a Netlify.
+
+3. Asegúrate de configurar correctamente la URL del backend en `js/config.js`:
+
+```js
+export const API_URL = "https://backend-crowdfunding-mzfl.onrender.com/api";
+```
+
+---
+
+## ✅ Requisitos
+
+- Navegador moderno (Chrome, Firefox, Edge, Brave)
+- Backend desplegado y funcional (ver enlace arriba)
+
+---
+
+## 🧠 Notas técnicas
+
+- Se usa `localStorage` para guardar el token y el rol del usuario.
+- Navbar y footer se cargan con `include.js` para mantener DRY el HTML.
+- Los formularios manejan validaciones básicas en el frontend.
+
+---
+
+## 👨‍💻 Autor
+
+Desarrollado por **Juan Salas** — 2025
+
